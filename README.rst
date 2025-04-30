@@ -27,9 +27,14 @@ python-serial或python3-serial
 
 修改端口号：
   
-   在目录launch/nmea_serial_driver.launch中
+在目录launch/nmea_serial_driver.launch中
+ 
+   <arg name="port" default="/dev/ttyACM3" />
 
+   <arg name="baud" default="115200" />
 
+需要将port的值改为R1在主机实际的端口号
+baud改为115200
 
 编译：
 
@@ -42,6 +47,39 @@ python-serial或python3-serial
 API
 ---
 
-This package has no released Code API.
+发布的Topic中：
 
-The ROS API documentation and other information can be found at http://ros.org/wiki/nmea_navsat_driver
+/fix 
+
+作用：RTK实时定位信息
+
+格式：sensor_msgs/NavSatFix
+
+
+
+/vel
+
+作用：移动速度
+
+格式：geometry_msgs/TwistStamped
+
+RTK设备的速度输出。仅当设备输出有效速度信息时发布。驱动程序不会仅根据位置定位来计算速度。需要RTK设备输出NEMA中的GPVTG语句
+
+
+/heading
+
+作用：航向
+
+格式：geometry_msgs/QuaternionStamped
+
+RTK设备的实时航向，通过双天线测得，需要RTK设备输出NEMA中的GPHDT语句
+
+
+
+/time_reference
+
+作用：时间引用
+
+格式：sensor_msgs/TimeReference
+
+RTK设备中读取卫星的时间，作为该TimeReference
