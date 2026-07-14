@@ -1,7 +1,13 @@
 cmake_minimum_required(VERSION 3.0.2)
 project(nmea_navsat_driver)
 
-find_package(catkin REQUIRED COMPONENTS)
+find_package(catkin REQUIRED COMPONENTS
+  rospy
+  sensor_msgs
+  geometry_msgs
+  std_msgs
+  gnss_comm
+)
 
 
 
